@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
 import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/users")
@@ -28,5 +30,13 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
         User user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    // Build Get All Users REST API
+    // http://localhost:8080/api/users
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }
