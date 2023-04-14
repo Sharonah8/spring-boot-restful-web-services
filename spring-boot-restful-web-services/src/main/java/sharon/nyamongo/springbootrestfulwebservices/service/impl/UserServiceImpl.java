@@ -2,6 +2,7 @@ package sharon.nyamongo.springbootrestfulwebservices.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
 import sharon.nyamongo.springbootrestfulwebservices.repository.UserRepository;
 import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
@@ -15,8 +16,16 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userDto) {
+
+        // convert UserDto into User JPA Entity
+        User user1 = new User(
+                userDto.getId(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail()
+        );
+        return userRepository.save(userDto);
     }
 
     @Override

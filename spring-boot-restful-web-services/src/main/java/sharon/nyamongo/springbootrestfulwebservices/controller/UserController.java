@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
 import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
 
@@ -19,7 +20,7 @@ public class UserController {
 
     // build create User REST API
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
        User savedUser = userService.createUser(user);
        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
