@@ -19,13 +19,22 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
 
         // convert UserDto into User JPA Entity
-        User user1 = new User(
+        User user = new User(
                 userDto.getId(),
                 userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getEmail()
         );
-        return userRepository.save(userDto);
+       User savedUser = userRepository.save(user);
+
+       // Convert User JPA Entity to UserDto
+        UserDto savedUserDto = new UserDto(
+                savedUser.getId(),
+                savedUser.getFirstName(),
+                savedUser.getLastName(),
+                savedUser.getEmail()
+        );
+        return savedUserDto;
     }
 
     @Override
