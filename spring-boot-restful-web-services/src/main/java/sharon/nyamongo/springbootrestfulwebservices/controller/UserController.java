@@ -18,7 +18,7 @@ public class UserController {
 
     private UserService userService;
 
-    // build create User REST API
+     // build create User REST API
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
        UserDto savedUser = userService.createUser(user);
@@ -28,8 +28,8 @@ public class UserController {
     // build get user by id REST API
     // http://localhost:8080/api/users/1
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
-        User user = userService.getUserById(userId);
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
+        UserDto user = userService.getUserById(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
