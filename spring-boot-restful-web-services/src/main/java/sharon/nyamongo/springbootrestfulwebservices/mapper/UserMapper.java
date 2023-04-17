@@ -15,4 +15,15 @@ public class UserMapper {
         );
         return userDto;
     }
+
+    // convert UserDto into User JPA Entity
+    public static User mapToUser(UserDto userDto){
+        User user = new User(
+                userDto.getId(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail()
+        );
+        return user;
+    }
 }
