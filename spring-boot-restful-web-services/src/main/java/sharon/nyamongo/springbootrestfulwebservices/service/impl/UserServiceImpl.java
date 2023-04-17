@@ -10,6 +10,7 @@ import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -36,9 +37,12 @@ public class UserServiceImpl implements UserService {
         return UserMapper.mapToUserDto(user);
     }
 
+    // convert List of User JPA entity into List of UserDto
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserMapper::mapToUserDto)
+                .collect(Collectors.toList());
     }
 
     @Override
