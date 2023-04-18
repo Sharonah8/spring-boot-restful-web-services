@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
+import sharon.nyamongo.springbootrestfulwebservices.exception.EmailAlreadyExistsException;
 import sharon.nyamongo.springbootrestfulwebservices.exception.ResourceNotFoundException;
 import sharon.nyamongo.springbootrestfulwebservices.mapper.AutoUserMapper;
 import sharon.nyamongo.springbootrestfulwebservices.mapper.UserMapper;
@@ -31,9 +32,9 @@ public class UserServiceImpl implements UserService {
 //        User user = modelMapper.map(userDto, User.class);
 
         Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
-    // add conditional to check if user already exists by email
-        if(){
 
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistsException("Email already exists for a user")
         }
 
         User user = AutoUserMapper.MAPPER.mapToUser(userDto);
