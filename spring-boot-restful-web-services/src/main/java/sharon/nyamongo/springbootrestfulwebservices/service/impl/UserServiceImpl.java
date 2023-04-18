@@ -66,7 +66,8 @@ public class UserServiceImpl implements UserService {
         existingUser.setEmail(user.getEmail());
         User updatedUser = userRepository.save(existingUser);
 //        return UserMapper.mapToUserDto(updatedUser);
-        return modelMapper.map(updatedUser, UserDto.class);
+//        return modelMapper.map(updatedUser, UserDto.class);
+        return AutoUserMapper.MAPPER.mapToUserDto(updatedUser);
     }
 
     @Override
