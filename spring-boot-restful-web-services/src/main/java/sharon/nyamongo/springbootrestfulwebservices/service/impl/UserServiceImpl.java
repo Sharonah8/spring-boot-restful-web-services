@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
+import sharon.nyamongo.springbootrestfulwebservices.exception.ResourceNotFoundException;
 import sharon.nyamongo.springbootrestfulwebservices.mapper.AutoUserMapper;
 import sharon.nyamongo.springbootrestfulwebservices.mapper.UserMapper;
 import sharon.nyamongo.springbootrestfulwebservices.repository.UserRepository;
@@ -41,11 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User user = optionalUser.get();
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", userId)
+        );
 //        return UserMapper.mapToUserDto(user);
 //        return modelMapper.map(user, UserDto.class);
-        return AutoUserMapper.MAPPER.mapToUserDto(optionalUser.get());
+        return AutoUserMapper.MAPPER.mapToUserDto(user);
     }
 
     // convert List of User JPA entity into List of UserDto
