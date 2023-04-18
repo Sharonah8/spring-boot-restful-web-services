@@ -28,21 +28,21 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
 
         // convert UserDto into User JPA Entity
-//        User user = UserMapper.mapToUser(userDto);
+        // User user = UserMapper.mapToUser(userDto);
 //        User user = modelMapper.map(userDto, User.class);
 
         Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
 
         if(optionalUser.isPresent()){
-            throw new EmailAlreadyExistsException("Email already exists for a user")
+            throw new EmailAlreadyExistsException("Email already exists for a user");
         }
 
         User user = AutoUserMapper.MAPPER.mapToUser(userDto);
 
         User savedUser = userRepository.save(user);
 
-       // Convert User JPA Entity to UserDto
-       // UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+//        Convert User JPA Entity to UserDto
+//        UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
 //        UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
         UserDto savedUserDto = AutoUserMapper.MAPPER.mapToUserDto(savedUser);
         return savedUserDto;
