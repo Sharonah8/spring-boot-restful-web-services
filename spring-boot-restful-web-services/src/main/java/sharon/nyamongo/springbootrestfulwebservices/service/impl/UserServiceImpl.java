@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
+import sharon.nyamongo.springbootrestfulwebservices.mapper.AutoUserMapper;
 import sharon.nyamongo.springbootrestfulwebservices.mapper.UserMapper;
 import sharon.nyamongo.springbootrestfulwebservices.repository.UserRepository;
 import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
@@ -25,13 +26,16 @@ public class UserServiceImpl implements UserService {
 
         // convert UserDto into User JPA Entity
 //        User user = UserMapper.mapToUser(userDto);
-        User user = modelMapper.map(userDto, User.class);
+//        User user = modelMapper.map(userDto, User.class);
+
+        User user = AutoUserMapper.MAPPER.mapToUser(userDto);
 
         User savedUser = userRepository.save(user);
 
        // Convert User JPA Entity to UserDto
        // UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
-        UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
+//        UserDto savedUserDto = modelMapper.map(savedUser, UserDto.class);
+        UserDto savedUserDto = AutoUserMapper.MAPPER.mapToUserDto(savedUser);
         return savedUserDto;
     }
 
