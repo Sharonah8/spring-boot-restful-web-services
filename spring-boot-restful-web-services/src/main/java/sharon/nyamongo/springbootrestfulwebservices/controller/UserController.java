@@ -5,10 +5,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import sharon.nyamongo.springbootrestfulwebservices.dto.UserDto;
 import sharon.nyamongo.springbootrestfulwebservices.entity.User;
+import sharon.nyamongo.springbootrestfulwebservices.exception.ErrorDetails;
+import sharon.nyamongo.springbootrestfulwebservices.exception.ResourceNotFoundException;
 import sharon.nyamongo.springbootrestfulwebservices.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -57,6 +61,19 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId){
         userService.deleteUser(userId);
         return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+    }
+
+    // handle specific exceptions with respect to the specific controller
+    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
+                                                                        WebRequest webRequest ){
+        ErrorDetails errorDetails = new ErrorDetails(
+                LocalDateTime.now(),
+                exception.getMessage(),
+                webRequest.getDescription(false),
+                "USER_NOT_FOUND"
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+
     }
 }
 
