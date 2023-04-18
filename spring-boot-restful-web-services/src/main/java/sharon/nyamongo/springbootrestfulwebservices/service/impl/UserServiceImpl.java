@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = userRepository.findById(userId);
         User user = optionalUser.get();
 //        return UserMapper.mapToUserDto(user);
-        return modelMapper.map(user, UserDto.class);
+//        return modelMapper.map(user, UserDto.class);
+        return AutoUserMapper.MAPPER.mapToUserDto(optionalUser.get());
     }
 
     // convert List of User JPA entity into List of UserDto
