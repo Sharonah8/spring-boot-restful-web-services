@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
 //        return users.stream().map(UserMapper::mapToUserDto)
 //                .collect(Collectors.toList());
-        return users.stream().map((user) -> modelMapper.map(user, UserDto.class))
+        return users.stream().map((user) -> AutoUserMapper.MAPPER.mapToUserDto(user))
                 .collect(Collectors.toList());
     }
 
