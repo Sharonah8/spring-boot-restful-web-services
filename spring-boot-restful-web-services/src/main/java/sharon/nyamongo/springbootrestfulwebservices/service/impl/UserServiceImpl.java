@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     private ModelMapper modelMapper;
+
+    // write logic to check if user email already exists in db
     @Override
     public UserDto createUser(UserDto userDto) {
 
