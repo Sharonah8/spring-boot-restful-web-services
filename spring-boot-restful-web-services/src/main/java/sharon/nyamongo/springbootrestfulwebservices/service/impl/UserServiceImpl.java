@@ -23,13 +23,18 @@ public class UserServiceImpl implements UserService {
 
     private ModelMapper modelMapper;
 
-    // write logic to check if user email already exists in db
     @Override
     public UserDto createUser(UserDto userDto) {
 
         // convert UserDto into User JPA Entity
 //        User user = UserMapper.mapToUser(userDto);
 //        User user = modelMapper.map(userDto, User.class);
+
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+    // add conditional to check if user already exists by email
+        if(){
+
+        }
 
         User user = AutoUserMapper.MAPPER.mapToUser(userDto);
 
