@@ -16,7 +16,7 @@ public class UserDto {
     private Long id;
 
     // User first name should not be null or empty
-    @NotEmpty
+    @NotEmpty(message = "User first name should not be null or empty")
     private String firstName;
 
     // User last name should not be null or empty
