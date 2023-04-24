@@ -25,7 +25,7 @@ public class UserDto {
 
     // User email should not be null or empty
     // Email address should be valid
-    @NotEmpty
-    @Email
+    @NotEmpty(message = "User email should not be null or empty")
+    @Email(message = "Email address should be valid")
     private String email;
 }
