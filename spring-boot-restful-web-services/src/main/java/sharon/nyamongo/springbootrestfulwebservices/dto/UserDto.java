@@ -20,7 +20,7 @@ public class UserDto {
     private String firstName;
 
     // User last name should not be null or empty
-    @NotEmpty
+    @NotEmpty(message = "User last name should not be null or empty")
     private String lastName;
 
     // User email should not be null or empty
